@@ -1,21 +1,14 @@
 package com.svalero.ERM.domain;
 
-import com.svalero.ERM.util.Coordinates;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CollectionId;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.lang.reflect.Array;
-import java.time.DateTimeException;
 import java.time.LocalDate;
-import java.util.Date;
 
 @Data
 @AllArgsConstructor
