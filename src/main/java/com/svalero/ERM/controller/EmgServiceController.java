@@ -1,8 +1,10 @@
 package com.svalero.ERM.controller;
 
+import com.svalero.ERM.EmergencyReportingSystemApplication;
 import com.svalero.ERM.domain.EmgService;
 import com.svalero.ERM.domain.dto.EmgServiceDTO;
 import com.svalero.ERM.exception.EmgServiceNotFoundException;
+import com.svalero.ERM.exception.ErrorException;
 import com.svalero.ERM.service.EmgServiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -55,5 +57,18 @@ public class EmgServiceController {
     public ResponseEntity<Void> deleteEmgService(@PathVariable long id) throws EmgServiceNotFoundException {
         emgServiceService.deleteEmgService(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @ExceptionHandler(EmgServiceNotFoundException.class)
+    public ResponseEntity<ErrorException> handleEmgServiceNotFoundException(EmgServiceNotFoundException enf) {
+        ErrorException errorException = new ErrorException(404, enf.getMessage());
+        return new ResponseEntity<>(errorException, HttpStatus.NOT_FOUND);
+    }
+
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorException> handleException(Exception e) {
+        ErrorException error = new ErrorException(500, "Oops, something went wrong");
+        return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 }
