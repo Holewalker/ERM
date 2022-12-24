@@ -13,6 +13,8 @@ public interface EmgServiceService {
 
     List<EmgService> findByLocation(String location);
 
+    List<EmgService> findByType(String type);
+
     EmgService addEmgService(EmgServiceDTO emgServiceDTO);
 
     void deleteEmgService(long id) throws EmgServiceNotFoundException;

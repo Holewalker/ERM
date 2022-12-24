@@ -31,6 +31,11 @@ public class emgServiceServiceImpl implements EmgServiceService {
     }
 
     @Override
+    public List<EmgService> findByType(String type) {
+        return emgServiceRepository.findByTypeContainingIgnoreCase(type);
+    }
+
+    @Override
     public EmgService addEmgService(EmgServiceDTO emgServiceDTO) {
         EmgService newEmgService = new EmgService();
         newEmgService.setLocation(emgServiceDTO.getLocation());

@@ -10,5 +10,8 @@ public interface EmgServiceRepository extends CrudRepository<EmgService, Long> {
 
     List<EmgService> findByLocationContainingIgnoreCase(String location);
 
+    List<EmgService> findByTypeContainingIgnoreCase(String type);
+
+
 
 }
