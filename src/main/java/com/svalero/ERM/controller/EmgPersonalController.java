@@ -45,12 +45,7 @@ public class EmgPersonalController {
             List<EmgPersonal> emgPersonalList = emgPersonalService.findByFullName(data.get("fullName"));
             logger.info("No more data (Emg Personal)");
             return ResponseEntity.ok(emgPersonalList);
-        } else if (data.containsKey("idNumber")) {
-            logger.info("idNumber:" + data.get("idNumber"));
-            List<EmgPersonal> emgPersonalList = emgPersonalService.findByIdNumber(data.get("idNumber"));
-            logger.info("No more data (Emg Personal)");
-            return ResponseEntity.ok(emgPersonalList);
-        } else if (data.containsKey("id")) {
+        }  else if (data.containsKey("id")) {
             logger.info("id:" + data.get("id"));
             List<EmgPersonal> emgPersonalList = new ArrayList<>();
             emgPersonalList.add(emgPersonalService.findById(Long.parseLong(data.get("id"))));
