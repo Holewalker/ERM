@@ -43,9 +43,9 @@ public class InterventionServiceImpl implements InterventionService {
 
 
     @Override
-    public List<Intervention> findByStatus(String status) {
+    public List<Intervention> findByStatus(int status) {
         logger.info("Intervention Status: " + status);
-        return interventionRepository.findByStatusContainingIgnoreCase(status);
+        return interventionRepository.findByStatus(status);
     }
 
 

@@ -38,9 +38,9 @@ public class IncidentServiceImpl implements IncidentService {
     }
 
     @Override
-    public List<Incident> findByStatus(String status) {
+    public List<Incident> findByStatus(int status) {
         logger.info("Incident Status: " + status);
-        return incidentRepository.findByStatusContainingIgnoreCase(status);
+        return incidentRepository.findByStatus(status);
     }
 
 

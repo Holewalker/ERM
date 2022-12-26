@@ -17,7 +17,7 @@ public interface IncidentService {
 
     List<Incident> findByLocation(String location);
 
-    List<Incident> findByStatus(String status);
+    List<Incident> findByStatus(int status);
 
     Incident addIncident(IncidentDTO incidentDTO);
 

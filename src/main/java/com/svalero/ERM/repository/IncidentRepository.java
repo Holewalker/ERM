@@ -9,6 +9,6 @@ import java.util.List;
 public interface IncidentRepository extends CrudRepository<Incident, Long> {
     List<Incident> findAll();
     List<Incident> findByLocationContainingIgnoreCase(String location);
-    List<Incident> findByStatusContainingIgnoreCase(String status);
+    List<Incident> findByStatus(int status);
 
 }

@@ -9,6 +9,6 @@ import java.util.List;
 public interface InterventionRepository extends CrudRepository<Intervention, Long> {
     List<Intervention> findAll();
     //TODO find by emgService ID
-    List<Intervention> findByStatusContainingIgnoreCase(String status);
+    List<Intervention> findByStatus(int status);
 
 }

@@ -15,7 +15,7 @@ public interface InterventionService {
 
     Intervention findById(long id) throws InterventionNotFoundException;
 
-    List<Intervention> findByStatus(String status);
+    List<Intervention> findByStatus(int status);
 
     Intervention addIntervention(InterventionDTO interventionDTO) throws IncidentNotFoundException, EmgServiceNotFoundException;
 
