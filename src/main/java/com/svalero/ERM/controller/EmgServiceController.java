@@ -53,7 +53,7 @@ public class EmgServiceController {
         return ResponseEntity.status(HttpStatus.OK).body(emgService);
     }
 
-    @DeleteMapping("inventories/{id}")
+    @DeleteMapping("EmergencyServices/{id}")
     public ResponseEntity<Void> deleteEmgService(@PathVariable long id) throws EmgServiceNotFoundException {
         emgServiceService.deleteEmgService(id);
         return ResponseEntity.noContent().build();
