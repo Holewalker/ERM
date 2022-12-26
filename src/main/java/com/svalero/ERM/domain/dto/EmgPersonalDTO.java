@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmgPersonalDTO {
-
+    long emgServiceId;
     String fullName;
     String idNumber;
     String type;

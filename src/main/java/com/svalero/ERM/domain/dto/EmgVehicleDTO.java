@@ -10,7 +10,7 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class EmgVehicleDTO {
-
+    long emgServiceId;
     String model;
     String vin;
     String type;
