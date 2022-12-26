@@ -2,20 +2,24 @@ package com.svalero.ERM.controller;
 
 import com.svalero.ERM.domain.EmgVehicle;
 import com.svalero.ERM.domain.dto.EmgVehicleDTO;
+import com.svalero.ERM.exception.EmgServiceNotFoundException;
 import com.svalero.ERM.exception.EmgVehicleNotFoundException;
-import com.svalero.ERM.exception.ErrorException;
+import com.svalero.ERM.util.ErrorUtil;
 import com.svalero.ERM.service.EmgVehicleService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.svalero.ERM.util.ErrorUtil.getErrorExceptionResponseEntity;
 
 @RestController
 public class EmgVehicleController {
@@ -55,7 +59,7 @@ public class EmgVehicleController {
     }
 
     @PostMapping("/EmergencyVehicles")
-    public ResponseEntity<EmgVehicle> addEmgVehicle(@Valid @RequestBody EmgVehicleDTO emgVehicleDTO) {
+    public ResponseEntity<EmgVehicle> addEmgVehicle(@Valid @RequestBody EmgVehicleDTO emgVehicleDTO) throws EmgServiceNotFoundException {
         logger.info("POST EmgVehicle");
         EmgVehicle emgVehicle = emgVehicleService.addEmgVehicle(emgVehicleDTO);
         logger.info("POST EmgVehicle END");
@@ -63,7 +67,7 @@ public class EmgVehicleController {
     }
 
     @PutMapping("/EmergencyVehicles/{id}")
-    public ResponseEntity<EmgVehicle> modifyEmgVehicle(@PathVariable long id, @RequestBody EmgVehicleDTO emgVehicleDTO) throws EmgVehicleNotFoundException {
+    public ResponseEntity<EmgVehicle> modifyEmgVehicle(@PathVariable long id, @Valid @RequestBody EmgVehicleDTO emgVehicleDTO) throws EmgVehicleNotFoundException, EmgServiceNotFoundException {
         logger.info("PUT EmgVehicle");
         EmgVehicle emgVehicle = emgVehicleService.modifyEmgVehicle(id, emgVehicleDTO);
         logger.info("PUT EmgVehicle END");
@@ -78,9 +82,15 @@ public class EmgVehicleController {
         return ResponseEntity.noContent().build();
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorUtil> handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
+        logger.error("Data is not correct");
+        return getErrorExceptionResponseEntity(methodArgumentNotValidException);
+    }
+
     @ExceptionHandler(EmgVehicleNotFoundException.class)
-    public ResponseEntity<ErrorException> handleEmgVehicleNotFoundException(EmgVehicleNotFoundException enf) {
-        ErrorException errorException = new ErrorException(404, enf.getMessage());
+    public ResponseEntity<ErrorUtil> handleEmgVehicleNotFoundException(EmgVehicleNotFoundException enf) {
+        ErrorUtil errorException = new ErrorUtil(404, enf.getMessage());
         logger.info("EmgVehicle not found");
 
         return new ResponseEntity<>(errorException, HttpStatus.NOT_FOUND);
@@ -88,8 +98,8 @@ public class EmgVehicleController {
 
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorException> handleException(Exception e) {
-        ErrorException error = new ErrorException(500, "Oops, something went wrong");
+    public ResponseEntity<ErrorUtil> handleException(Exception e) {
+        ErrorUtil error = new ErrorUtil(500, "Oops, something went wrong");
         logger.info("ERROREXCEPTION:" + e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }

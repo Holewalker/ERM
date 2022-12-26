@@ -1,22 +1,24 @@
 package com.svalero.ERM.controller;
 
-import com.svalero.ERM.EmergencyReportingSystemApplication;
 import com.svalero.ERM.domain.EmgService;
 import com.svalero.ERM.domain.dto.EmgServiceDTO;
 import com.svalero.ERM.exception.EmgServiceNotFoundException;
-import com.svalero.ERM.exception.ErrorException;
+import com.svalero.ERM.util.ErrorUtil;
 import com.svalero.ERM.service.EmgServiceService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.svalero.ERM.util.ErrorUtil.getErrorExceptionResponseEntity;
 
 @RestController
 public class EmgServiceController {
@@ -64,7 +66,7 @@ public class EmgServiceController {
     }
 
     @PutMapping("/EmergencyServices/{id}")
-    public ResponseEntity<EmgService> modifyEmgService(@PathVariable long id, @RequestBody EmgServiceDTO emgServiceDTO) throws EmgServiceNotFoundException {
+    public ResponseEntity<EmgService> modifyEmgService(@PathVariable long id, @Valid @RequestBody EmgServiceDTO emgServiceDTO) throws EmgServiceNotFoundException {
         logger.info("PUT EmgService");
         EmgService emgService = emgServiceService.modifyEmgService(id, emgServiceDTO);
         logger.info("PUT EmgService END");
@@ -79,9 +81,15 @@ public class EmgServiceController {
         return ResponseEntity.noContent().build();
     }
 
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ErrorUtil> handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException) {
+        logger.error("Data is not correct");
+        return getErrorExceptionResponseEntity(methodArgumentNotValidException);
+    }
+
     @ExceptionHandler(EmgServiceNotFoundException.class)
-    public ResponseEntity<ErrorException> handleEmgServiceNotFoundException(EmgServiceNotFoundException enf) {
-        ErrorException errorException = new ErrorException(404, enf.getMessage());
+    public ResponseEntity<ErrorUtil> handleEmgServiceNotFoundException(EmgServiceNotFoundException enf) {
+        ErrorUtil errorException = new ErrorUtil(404, enf.getMessage());
         logger.info("Emg Service not found");
 
         return new ResponseEntity<>(errorException, HttpStatus.NOT_FOUND);
@@ -89,8 +97,8 @@ public class EmgServiceController {
 
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ErrorException> handleException(Exception e) {
-        ErrorException error = new ErrorException(500, "Oops, something went wrong");
+    public ResponseEntity<ErrorUtil> handleException(Exception e) {
+        ErrorUtil error = new ErrorUtil(500, "Oops, something went wrong");
         logger.info("ERROREXCEPTION:" + e.getMessage());
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
