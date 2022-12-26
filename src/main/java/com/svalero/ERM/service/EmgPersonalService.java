@@ -15,6 +15,8 @@ public interface EmgPersonalService {
 
     List<EmgPersonal> findByType(String type);
 
+    List<EmgPersonal>  findByFullName(String fullName);
+    List<EmgPersonal>  findByIdNumber(String idNumber);
     EmgPersonal addEmgPersonal(EmgPersonalDTO emgPersonalDTO);
 
     void deleteEmgPersonal(long id) throws  EmgPersonalNotFoundException;

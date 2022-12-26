@@ -9,7 +9,7 @@ public interface EmgPersonalRepository extends CrudRepository<EmgPersonal, Long>
     List<EmgPersonal> findAll();
 
     List<EmgPersonal> findByTypeContainingIgnoreCase(String type);
-
-
+    List<EmgPersonal> findByIdNumberContainingIgnoreCase(String idNumber);
+    List<EmgPersonal> findByFullNameContainingIgnoreCase(String fullName);
 
 }
