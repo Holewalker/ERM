@@ -51,7 +51,7 @@ public class EmgVehicle {
     private boolean onRoute = false;
 
     @Column
-    private boolean avaliable = true;
+    private boolean available = true;
 
     @Column
     @NotNull(message = "Location must be specified")

@@ -4,6 +4,7 @@ import com.svalero.ERM.domain.EmgPersonal;
 import com.svalero.ERM.domain.dto.EmgPersonalDTO;
 import com.svalero.ERM.domain.dto.EmgServiceDTO;
 import com.svalero.ERM.exception.EmgPersonalNotFoundException;
+import com.svalero.ERM.exception.EmgServiceNotFoundException;
 
 import java.util.List;
 
@@ -17,11 +18,11 @@ public interface EmgPersonalService {
 
     List<EmgPersonal>  findByFullName(String fullName);
     List<EmgPersonal>  findByIdNumber(String idNumber);
-    EmgPersonal addEmgPersonal(EmgPersonalDTO emgPersonalDTO);
+    EmgPersonal addEmgPersonal(EmgPersonalDTO emgPersonalDTO) throws EmgServiceNotFoundException;
 
     void deleteEmgPersonal(long id) throws  EmgPersonalNotFoundException;
 
-    EmgPersonal modifyEmgPersonal(long id, EmgPersonalDTO emgPersonalDTO) throws EmgPersonalNotFoundException;
+    EmgPersonal modifyEmgPersonal(long id, EmgPersonalDTO emgPersonalDTO) throws EmgPersonalNotFoundException, EmgServiceNotFoundException;
 
 
 }

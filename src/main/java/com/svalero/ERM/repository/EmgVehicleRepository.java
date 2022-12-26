@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface EmgVehicleRepository extends CrudRepository<EmgVehicle, Long> {
     List<EmgVehicle> findAll();
-
     List<EmgVehicle> findByTypeContainingIgnoreCase(String type);
     List<EmgVehicle> findByModelContainingIgnoreCase(String model);
 

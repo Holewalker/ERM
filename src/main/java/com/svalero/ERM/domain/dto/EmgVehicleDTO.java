@@ -16,7 +16,7 @@ public class EmgVehicleDTO {
     String type;
     int operStatus;
     boolean onRoute;
-    boolean avaliable;
+    boolean available;
     String location;
     double lat;
     double lon;
