@@ -10,6 +10,6 @@ import java.util.List;
 public interface ReportRepository extends CrudRepository<Report, Long> {
     List<Report> findAll();
     List<Report> findByTitleContainingIgnoreCase(String Title);
-    List<Report> findByEndDateContainingIgnoreCase(LocalDate endDate);
+    List<Report> findByEndDate(LocalDate endDate);
 
 }

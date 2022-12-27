@@ -46,7 +46,7 @@ public class ReportServiceImpl implements ReportService {
     @Override
     public List<Report> findByEndDate(LocalDate endDate) {
         logger.info("Report End Date: " + endDate);
-        return reportRepository.findByEndDateContainingIgnoreCase(endDate);
+        return reportRepository.findByEndDate(endDate);
     }
 
     @Override
