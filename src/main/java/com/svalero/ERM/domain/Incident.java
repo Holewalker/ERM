@@ -35,12 +35,10 @@ public class Incident {
 
     @Column
     @NotNull(message = "Coordinates must be specified")
-    @NotBlank(message = "Coordinates must be specified")
     private double lat;
 
     @Column
     @NotNull(message = "Coordinates must be specified")
-    @NotBlank(message = "Coordinates must be specified")
     private double lon;
 
     @Column
