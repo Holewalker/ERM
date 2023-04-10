@@ -57,8 +57,12 @@ public class EmgVehicleServiceImpl implements EmgVehicleService {
         newEmgVehicle.setEmgServiceVehicle(emgService);
         newEmgVehicle.setModel(emgVehicleDTO.getModel());
         newEmgVehicle.setVin(emgVehicleDTO.getVin());
+        newEmgVehicle.setOperStatus(emgVehicleDTO.getOperStatus());
         newEmgVehicle.setType(emgVehicleDTO.getType());
-        newEmgVehicle.setType(emgVehicleDTO.getType());
+        newEmgVehicle.setLastMaintenance(emgVehicleDTO.getLastMaintenance());
+        newEmgVehicle.setLocation(emgVehicleDTO.getLocation());
+        newEmgVehicle.setLat(emgVehicleDTO.getLat());
+        newEmgVehicle.setLon(emgVehicleDTO.getLon());
         return emgVehicleRepository.save(newEmgVehicle);
     }
 
@@ -78,8 +82,12 @@ public class EmgVehicleServiceImpl implements EmgVehicleService {
         currentEmgVehicle.setEmgServiceVehicle(currentEmgService);
         currentEmgVehicle.setModel(emgVehicleDTO.getModel());
         currentEmgVehicle.setVin(emgVehicleDTO.getVin());
+        currentEmgVehicle.setOperStatus(emgVehicleDTO.getOperStatus());
         currentEmgVehicle.setType(emgVehicleDTO.getType());
-        currentEmgVehicle.setType(emgVehicleDTO.getType());
+        currentEmgVehicle.setLastMaintenance(emgVehicleDTO.getLastMaintenance());
+        currentEmgVehicle.setLocation(emgVehicleDTO.getLocation());
+        currentEmgVehicle.setLat(emgVehicleDTO.getLat());
+        currentEmgVehicle.setLon(emgVehicleDTO.getLon());
         logger.info("Vehicle Changed " + id + emgVehicleDTO);
         return emgVehicleRepository.save(currentEmgVehicle);
     }

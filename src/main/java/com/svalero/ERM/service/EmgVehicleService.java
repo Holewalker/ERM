@@ -18,10 +18,10 @@ public interface EmgVehicleService {
 
     List<EmgVehicle> findByModel(String model);
 
-    EmgVehicle addEmgVehicle(EmgVehicleDTO EmgVehicleDTO) throws EmgServiceNotFoundException;
+    EmgVehicle addEmgVehicle(EmgVehicleDTO emgVehicleDTO) throws EmgServiceNotFoundException;
 
     void deleteEmgVehicle(long id) throws EmgVehicleNotFoundException;
 
-    EmgVehicle modifyEmgVehicle(long id, EmgVehicleDTO EmgVehicleDTO) throws EmgVehicleNotFoundException, EmgServiceNotFoundException;
+    EmgVehicle modifyEmgVehicle(long id, EmgVehicleDTO emgVehicleDTO) throws EmgVehicleNotFoundException, EmgServiceNotFoundException;
 
 }

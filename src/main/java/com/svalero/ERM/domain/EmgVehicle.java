@@ -54,19 +54,17 @@ public class EmgVehicle {
     private boolean available = true;
 
     @Column
-    @NotNull(message = "Location must be specified")
-    @NotBlank(message = "Location must be specified")
+   @NotNull(message = "Location must be specified")
+   @NotBlank(message = "Location must be specified")
     private String location;
 
 
     @Column
     @NotNull(message = "Coordinates must be specified")
-    @NotBlank(message = "Coordinates must be specified")
     private double lat;
 
     @Column
     @NotNull(message = "Coordinates must be specified")
-    @NotBlank(message = "Coordinates must be specified")
     private double lon;
 
     @Column
