@@ -24,4 +24,6 @@ public interface EmgVehicleService {
 
     EmgVehicle modifyEmgVehicle(long id, EmgVehicleDTO emgVehicleDTO) throws EmgVehicleNotFoundException, EmgServiceNotFoundException;
 
+    List<EmgVehicle> findByEmgService(Long emgService) throws EmgServiceNotFoundException;
+
 }

@@ -4,6 +4,7 @@ import com.svalero.ERM.domain.EmgVehicle;
 import com.svalero.ERM.domain.dto.EmgVehicleDTO;
 import com.svalero.ERM.exception.EmgServiceNotFoundException;
 import com.svalero.ERM.exception.EmgVehicleNotFoundException;
+import com.svalero.ERM.service.EmgServiceService;
 import com.svalero.ERM.util.ErrorUtil;
 import com.svalero.ERM.service.EmgVehicleService;
 import org.slf4j.Logger;
@@ -26,11 +27,13 @@ public class EmgVehicleController {
 
     @Autowired
     EmgVehicleService emgVehicleService;
+    @Autowired
+    EmgServiceService emgServiceService;
 
     private final Logger logger = LoggerFactory.getLogger(EmgVehicleController.class);
 
     @GetMapping("/EmergencyVehicles")
-    public ResponseEntity<List<EmgVehicle>> getEmgVehicles(@RequestParam Map<String, String> data) throws EmgVehicleNotFoundException {
+    public ResponseEntity<List<EmgVehicle>> getEmgVehicles(@RequestParam Map<String, String> data) throws EmgVehicleNotFoundException, EmgServiceNotFoundException {
         logger.info("GET EmgVehicle");
 
         if (data.isEmpty()) {
@@ -44,6 +47,11 @@ public class EmgVehicleController {
         } else if (data.containsKey("type")) {
             logger.info("type:" + data.get("type"));
             List<EmgVehicle> emgVehicleList = emgVehicleService.findByType(data.get("type"));
+            logger.info("No more data (EmgVehicle)");
+            return ResponseEntity.ok(emgVehicleList);
+        } else if (data.containsKey("emgService")) {
+            logger.info("emgService:" + data.get("emgService"));
+            List<EmgVehicle> emgVehicleList = emgVehicleService.findByEmgService(Long.parseLong(data.get("emgService")));
             logger.info("No more data (EmgVehicle)");
             return ResponseEntity.ok(emgVehicleList);
         } else if (data.containsKey("id")) {
