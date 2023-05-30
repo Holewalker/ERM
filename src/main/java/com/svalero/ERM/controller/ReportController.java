@@ -39,7 +39,7 @@ public class ReportController {
         if (data.isEmpty()) {
             logger.info("No more data (Report)");
             return ResponseEntity.ok(reportService.findAll());
-        } else if (data.containsKey("model")) {
+        } else if (data.containsKey("title")) {
             logger.info("title:" + data.get("title"));
             List<Report> reportList = reportService.findByTitle(data.get("title"));
             logger.info("No more data (Report)");
