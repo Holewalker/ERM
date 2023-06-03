@@ -1,0 +1,1443 @@
+openapi: 3.0.3
+info:
+  title: ERM
+  description: Actividad de Aprendizaje de Acceso a Datos
+  version: 1.0.0
+servers:
+  - url: "http://localhost:8080"
+tags:
+  - name: Emergency personal
+    description: Operaciones con el personal de emergencia
+  - name: Emergency Service
+    description: Operaciones con los servicios de emergencia
+  - name: Emergency Vehicle
+    description: Operaciones con los vehiculos de emergencia
+  - name: Incident
+    description: Operaciones con los incidentes
+  - name: Intervention
+    description: Operaciones con las intervenciones
+  - name: Report
+    description: Operaciones con los informes
+
+paths:
+  /EmergencyPersonal:
+    get:
+      tags:
+        - Emergency personal
+      summary: Lista de todos el personal de la aplicacion
+      operationId: Emergency Personal
+      description: Obtiene una lista con todos el personal de la aplicacion. No es obligatorio introducir ningun parametro adicional. Solo se puede introducir un parametro a la vez.
+      parameters:
+        - name: id
+          in: query
+          description: Obtiene el personal que tenga el id pasado por parametro
+          required: false
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+        - name: fullName
+          in: query
+          description: Obtiene una lista con todos el personal que contengan el nombre pasado por parametro
+          required: false
+          schema:
+            type: string
+          examples:
+            Ejemplo_1:
+              value: Pepe
+            Ejemplo_2:
+              value: P
+        - name: type
+          in: query
+          description: Obtiene una lista con todos el personal de la categoria pasada por parametro
+          required: false
+          schema:
+            type: string
+          examples:
+            Ejemplo_1:
+              value: Fire
+            Ejemplo_2:
+              value: Police
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgPersonal"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Personal no encontrado
+        "500":
+          description: Error Interno
+
+    post:
+      tags:
+        - Emergency personal
+      summary: Crea un registro
+      operationId: Emergency Personal
+      description: Crea un registro de un personal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmgPersonalDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgPersonal"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Personal no encontrado
+        "500":
+          description: Error Interno
+    put:
+      tags:
+        - Emergency personal
+      summary: edita un registro
+      operationId: Emergency Personal
+      description: Edita un registro de un personal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2      
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmgPersonalDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgPersonal"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Personal no encontrado
+        "500":
+          description: Error Interno
+    delete:
+      tags:
+        - Emergency personal
+      summary: Borra un registro
+      operationId: Emergency Personal
+      description: Borra un registro de un personal
+      parameters:
+        - name: Id
+          in: path
+          description: Id del personal que se quiere borrar
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgPersonal"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Personal no encontrado
+        "500":
+          description: Error Interno
+
+  /EmergencyServices:
+    get:
+      tags:
+        - Emergency Service
+      summary: Lista de todos los servicios de la aplicacion
+      operationId: Emergency Service
+      description: Obtiene una lista con todos los servicios de la aplicacion. No es obligatorio introducir ningun parametro adicional. Solo se puede introducir un parametro a la vez.
+      parameters:
+        - name: id
+          in: query
+          description: Obtiene el servicio que tenga el id pasado por parametro
+          required: false
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+        - name: location
+          in: query
+          description: Obtiene una lista con todos los servicios que contengan la localizacion pasada por parametro
+          required: false
+          schema:
+            type: string
+          examples:
+            Ejemplo_1:
+              value: Zaragoza
+            Ejemplo_2:
+              value: Sevilla
+        - name: type
+          in: query
+          description: Obtiene una lista con todos el service de la categoria pasada por parametro
+          required: false
+          schema:
+            type: string
+          examples:
+            Ejemplo_1:
+              value: Fire
+            Ejemplo_2:
+              value: Police
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgService"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Service no encontrado
+        "500":
+          description: Error Interno
+
+    post:
+      tags:
+        - Emergency Service
+      summary: Crea un registro
+      operationId: Emergency Service
+      description: Crea un registro de un service
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmgServiceDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgService"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Service no encontrado
+        "500":
+          description: Error Interno
+    put:
+      tags:
+        - Emergency Service
+      summary: edita un registro
+      operationId: Emergency Service
+      description: Edita un registro de un service
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmgServiceDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgService"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Service no encontrado
+        "500":
+          description: Error Interno
+    delete:
+      tags:
+        - Emergency Service
+      summary: Borra un registro
+      operationId: Emergency Service
+      description: Borra un registro de un service
+      parameters:
+        - name: Id
+          in: path
+          description: Id del service que se quiere borrar
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgService"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Personal no encontrado
+        "500":
+          description: Error Interno
+
+  /EmergencyVehicles:
+    get:
+      tags:
+        - Emergency Vehicle
+      summary: Lista de todos el vehicle de la aplicacion
+      operationId: Emergency Vehicle
+      description: Obtiene una lista con todos el vehicle de la aplicacion. No es obligatorio introducir ningun parametro adicional. Solo se puede introducir un parametro a la vez.
+      parameters:
+        - name: id
+          in: query
+          description: Obtiene el vehicle que tenga el id pasado por parametro
+          required: false
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+        - name: emgService
+          in: query
+          description: obtiene los vehiculos de un servicio de emergencias
+          required: false
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+        - name: model
+          in: query
+          description: Obtiene una lista con todos el vehicle que contengan el nombre pasado por parametro
+          required: false
+          schema:
+            type: string
+          examples:
+            Ejemplo_1:
+              value: Pepe
+            Ejemplo_2:
+              value: P
+        - name: type
+          in: query
+          description: Obtiene una lista con todos el vehicle de la categoria pasada por parametro
+          required: false
+          schema:
+            type: string
+          examples:
+            Ejemplo_1:
+              value: Fire
+            Ejemplo_2:
+              value: Police
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgVehicle"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Vehicle no encontrado
+        "500":
+          description: Error Interno
+
+    post:
+      tags:
+        - Emergency Vehicle
+      summary: Crea un registro
+      operationId: Emergency Vehicle
+      description: Crea un registro de un vehicle
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmgVehicleDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgVehicle"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Vehicle no encontrado
+        "500":
+          description: Error Interno
+    put:
+      tags:
+        - Emergency Vehicle
+      summary: edita un registro
+      operationId: Emergency Vehicle
+      description: Edita un registro de un vehicle
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/EmgVehicleDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgVehicle"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Vehicle no encontrado
+        "500":
+          description: Error Interno
+    delete:
+      tags:
+        - Emergency Vehicle
+      summary: Borra un registro
+      operationId: Emergency Vehicle
+      description: Borra un registro de un vehicle
+      parameters:
+        - name: Id
+          in: path
+          description: Id del vehicle que se quiere borrar
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/EmgVehicle"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Personal no encontrado
+        "500":
+          description: Error Interno
+
+  /Incidents:
+    get:
+      tags:
+        - Incident
+      summary: Lista de todos los incidentes de la aplicacion
+      operationId: Incident
+      description: Obtiene una lista con todos los incidentes de la aplicacion. No es obligatorio introducir ningun parametro adicional. Solo se puede introducir un parametro a la vez.
+      parameters:
+        - name: id
+          in: query
+          description: Obtiene el Incidente que tenga el id pasado por parametro
+          required: false
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+        - name: status
+          in: query
+          description: obtiene los Incidentes con cierto estado
+          required: false
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 10
+            Ejemplo_2:
+              value: 29
+        - name: location
+          in: query
+          description: Obtiene una lista de los incidentes de una localidad
+          required: false
+          schema:
+            type: string
+          examples:
+            Ejemplo_1:
+              value: Zaragoza
+            Ejemplo_2:
+              value: Sevilla
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Incident"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Incidente no encontrado
+        "500":
+          description: Error Interno
+
+    post:
+      tags:
+        - Incident
+      summary: Crea un registro
+      operationId: Incident
+      description: Crea un registro de un incidente
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IncidentDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Incident"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Incident no encontrado
+        "500":
+          description: Error Interno
+    put:
+      tags:
+        - Incident
+      summary: edita un registro
+      operationId: Incident
+      description: Edita un registro de un incidente
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/IncidentDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Incident"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: incidente no encontrado
+        "500":
+          description: Error Interno
+    delete:
+      tags:
+        - Incident
+      summary: Borra un registro
+      operationId: Incident
+      description: Borra un registro de un incidente
+      parameters:
+        - name: Id
+          in: path
+          description: Id del incidente que se quiere borrar
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Incident"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Incidente no encontrado
+        "500":
+          description: Error Interno
+
+  /Interventions:
+    get:
+      tags:
+        - Intervention
+      summary: Lista de todos las intervenciones de la aplicacion
+      operationId: Intervention
+      description: Obtiene una lista con todos las intervenciones de la aplicacion. No es obligatorio introducir ningun parametro adicional. Solo se puede introducir un parametro a la vez.
+      parameters:
+        - name: id
+          in: query
+          description: Obtiene la intervencion que tenga el id pasado por parametro
+          required: false
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+        - name: status
+          in: query
+          description: obtiene los Intervenciones con cierto estado
+          required: false
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 10
+            Ejemplo_2:
+              value: 29
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Intervention"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Interventione no encontrado
+        "500":
+          description: Error Interno
+
+    post:
+      tags:
+        - Intervention
+      summary: Crea un registro
+      operationId: Intervention
+      description: Crea un registro de un intervencion
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InterventionDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Intervention"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Intervention no encontrado
+        "500":
+          description: Error Interno
+    put:
+      tags:
+        - Intervention
+      summary: edita un registro
+      operationId: Intervention
+      description: Edita un registro de un intervencion
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/InterventionDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Intervention"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Intervencion no encontrada
+        "500":
+          description: Error Interno
+    delete:
+      tags:
+        - Intervention
+      summary: Borra un registro
+      operationId: Intervention
+      description: Borra un registro de un interventione
+      parameters:
+        - name: Id
+          in: path
+          description: Id del interventione que se quiere borrar
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Intervention"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Interventione no encontrado
+        "500":
+          description: Error Interno
+
+  /Reports:
+    get:
+      tags:
+        - Report
+      summary: Lista de todos las intervenciones de la aplicacion
+      operationId: Report
+      description: Obtiene una lista con todos las intervenciones de la aplicacion. No es obligatorio introducir ningun parametro adicional. Solo se puede introducir un parametro a la vez.
+      parameters:
+        - name: id
+          in: query
+          description: Obtiene la intervencion que tenga el id pasado por parametro
+          required: false
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+        - name: title
+          in: query
+          description: Obtiene una lista con todas las intervenciones que tengan el texto en el titulo
+          required: false
+          schema:
+            type: string
+          examples:
+            Ejemplo_1:
+              value: Incendio
+            Ejemplo_2:
+              value: Fue
+        - name: endDate
+          in: query
+          description: Obtiene una lista con todas las intervenciones de una fecha
+          required: false
+          schema:
+            type: string
+            format: date
+          examples:
+            Ejemplo_1:
+              value: 2003-12-06
+            Ejemplo_2:
+              value: 2003-12-05
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Report"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Reporte no encontrado
+        "500":
+          description: Error Interno
+
+    post:
+      tags:
+        - Report
+      summary: Crea un registro
+      operationId: Report
+      description: Crea un registro de un reporte
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReportDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Report"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Report no encontrado
+        "500":
+          description: Error Interno
+    put:
+      tags:
+        - Report
+      summary: edita un registro
+      operationId: Report
+      description: Edita un registro de un reporte
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+          examples:
+            Ejemplo_1:
+              value: 1
+            Ejemplo_2:
+              value: 2
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReportDTO"
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Report"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Intervencion no encontrada
+        "500":
+          description: Error Interno
+    delete:
+      tags:
+        - Report
+      summary: Borra un registro
+      operationId: Report
+      description: Borra un registro de un reporte
+      parameters:
+        - name: Id
+          in: path
+          description: Id del reporte que se quiere borrar
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        "200":
+          description: Operacion correcta
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Report"
+        "400":
+          description: Bad Request - URL o parametros mal introducidos
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ErrorCode400"
+        "404":
+          description: Reporte no encontrado
+        "500":
+          description: Error Interno
+
+
+components:
+  schemas:
+    EmgPersonal:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        EmgService:
+          $ref: "#/components/schemas/EmgService"
+        fullName:
+          type: string
+          description: Nombre del personal en la aplicacion
+          example: Daniel Gonzalez
+        idNumber:
+          type: string
+          description: Numero de identificacion de la persona
+          example: 123456789f
+        type:
+          type: string
+          description: Sector del Personal
+          example: Fire
+        title:
+          type: string
+          description: Titulo
+          example: Dr.
+    EmgPersonalDTO:
+      type: object
+      properties:
+        emgServiceId:
+          type: integer
+          description: Id del servicio de emergencia
+          example: 1
+        fullName:
+          type: string
+          description: Nombre del personal en la aplicacion
+          example: Daniel Gonzalez
+        idNumber:
+          type: string
+          description: Numero de identificacion de la persona
+          example: 123456789f
+        type:
+          type: string
+          description: Sector del Personal
+          example: Fire
+        title:
+          type: string
+          description: Titulo
+          example: Dr.
+    EmgService:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador unico del servicio
+          example: 1
+        location:
+          type: string
+          description: Localidad del servicio
+          example: Zaragoza
+        type:
+          type: string
+          description: Tipo del servicio
+          example: Fire
+    EmgServiceDTO:
+      type: object
+      properties:
+        location:
+          type: string
+          description: Localidad del servicio
+          example: Zaragoza
+        type:
+          type: string
+          description: Tipo del servicio
+          example: Fire
+    EmgVehicle:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador unico de vehiculo
+          example: 1
+        EmgService:
+          $ref: "#/components/schemas/EmgService"
+        model:
+          type: string
+          description: Modelo del vehiculos
+          example: Seat panda
+        vin:
+          type: string
+          description: Numero de identificacion de vehiculo
+          example: 216546354fad534
+        type:
+          type: string
+          description: Tipo de vehiculo
+          example: Fire
+        operStatus:
+          type: integer
+          description: porcentaje de operatividad
+          example: 100
+        onRoute:
+          type: boolean
+          description: si el vehiculo esta en ruta
+          example: false
+        avaliable:
+          type: boolean
+          description: Si el vehiculo esta disponible
+          example: true
+        location:
+          type: string
+          description: Localidad de origen del vehiculo
+          example: Zaragoza
+        lat:
+          type: number
+          format: float
+          description: Latitud
+          example: 10.00023
+        lon:
+          type: number
+          format: float
+          description: Longitud
+          example: 10.00036
+        lastMaintenance:
+          type: string
+          format: date
+          description: fecha de ultimo mantenimiento
+          example: 2003-12-06
+    EmgVehicleDTO:
+      type: object
+      properties:
+        emgServiceId:
+          type: integer
+          description: Identificador unico de servicio de emergergencias
+          example: 1
+        model:
+          type: string
+          description: Modelo del vehiculos
+          example: Seat panda
+        vin:
+          type: string
+          description: Numero de identificacion de vehiculo
+          example: 216546354fad534
+        type:
+          type: string
+          description: Tipo de vehiculo
+          example: Fire
+        operStatus:
+          type: integer
+          description: porcentaje de operatividad
+          example: 100
+        onRoute:
+          type: boolean
+          description: si el vehiculo esta en ruta
+          example: false
+        avaliable:
+          type: boolean
+          description: Si el vehiculo esta disponible
+          example: true
+        location:
+          type: string
+          description: Localidad de origen del vehiculo
+          example: Zaragoza
+        lat:
+          type: number
+          format: float
+          description: Latitud
+          example: 10.00023
+        lon:
+          type: number
+          format: float
+          description: Longitud
+          example: 10.00036
+        lastMaintenance:
+          type: string
+          format: date
+          description: fecha de ultimo mantenimiento
+          example: 2003-12-06
+    Incident:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador unico de incidencia
+          example: 1
+        location:
+          type: string
+          description: Localidad donde se ocasiona la incidencia
+          example: Zaragoza
+        lat:
+          type: number
+          format: float
+          description: Latitud
+          example: 10.00023
+        lon:
+          type: number
+          format: float
+          description: Longitud
+          example: 10.00036
+        status:
+          type: integer
+          description: porcentaje de resolucion
+          example: 100
+        description:
+          type: string
+          description: descripcion del incidentes
+          example: incendio
+        startTime:
+          type: string
+          format: date
+          description: fecha de inicio
+          example: 2003-12-06
+    IncidentDTO:
+      type: object
+      properties:
+        location:
+          type: string
+          description: Localidad donde se ocasiona la incidencia
+          example: Zaragoza
+        lat:
+          type: number
+          format: float
+          description: Latitud
+          example: 10.00023
+        lon:
+          type: number
+          format: float
+          description: Longitud
+          example: 10.00036
+        status:
+          type: integer
+          description: porcentaje de resolucion
+          example: 100
+        description:
+          type: string
+          description: descripcion del incidentes
+          example: incendio
+        startTime:
+          type: string
+          format: date
+          description: fecha de inicio
+          example: 2003-12-06 
+    Intervention:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador unico de intervencion
+          example: 1
+        incidentIntervention:
+         $ref: "#/components/schemas/Incident"
+        emgServiceIntervention:
+         $ref: "#/components/schemas/EmgService"
+        status:
+          type: integer
+          description: porcentaje de resolucion
+          example: 100
+        dispatchdate:
+          type: string
+          format: date
+          description: fecha de inicio
+          example: 2003-12-06
+        endDate:
+          type: string
+          format: date
+          description: fecha de fin
+          example: 2003-12-06
+    InterventionDTO:
+      type: object
+      properties:
+        incidentInterventionId:
+          type: integer
+          description: Identificador unico de incidente
+          example: 1
+        emgServiceInterventionId:
+          type: integer
+          description: Identificador unico de servicio de emergencia
+          example: 1
+        status:
+          type: integer
+          description: porcentaje de resolucion
+          example: 100
+        dispatchdate:
+          type: string
+          format: date
+          description: fecha de inicio
+          example: 2003-12-06
+        endDate:
+          type: string
+          format: date
+          description: fecha de fin
+          example: 2003-12-06
+    Report:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador unico de reporte
+          example: 1
+        interventionReport:
+         $ref: "#/components/schemas/Intervention"
+        endDate:
+          type: string
+          format: date
+          description: fecha de fin
+          example: 2003-12-06
+        title:
+          type: string
+          description: titulo del reporte
+          example: incendio
+        text:
+          type: string
+          description: descripcion 
+          example: loremipsum
+        reporterComment:
+          type: string
+          description: comentarios de reportador
+          example: incendio
+    ReportDTO:
+      type: object
+      properties:
+        interventionReportId:
+          type: integer
+          description: Identificador unico de intervencion
+          example: 1
+        endDate:
+          type: string
+          format: date
+          description: fecha de fin
+          example: 2003-12-06
+        title:
+          type: string
+          description: titulo del reporte
+          example: incendio
+        text:
+          type: string
+          description: descripcion 
+          example: incendio
+        reporterComment:
+          type: string
+          description: comentarios de reportador
+          example: incendio
+    ErrorCode400:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Numero del error
+          example: 400
+        message:
+          type: string
+          description: Mensaje de error
+          example: Bad Request
+        errors:
+          type: array
+          description: Descripcion de los errores.
+          example: El nombre no puede estar vacio
+      xml:
+        name: ErrorCode400
+    ErrorCode500:
+      type: object
+      properties:
+        code:
+          type: integer
+          description: Numero del error
+          example: 500
+        message:
+          type: string
+          description: Mensaje de error
+          example: Error Interno
+        errors:
+          type: array
+          example: ""
+      xml:
+        name: ErrorCode500

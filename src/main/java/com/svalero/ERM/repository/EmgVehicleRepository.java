@@ -1,5 +1,6 @@
 package com.svalero.ERM.repository;
 
+import com.svalero.ERM.domain.EmgService;
 import com.svalero.ERM.domain.EmgVehicle;
 import org.springframework.data.repository.CrudRepository;
 
@@ -10,4 +11,5 @@ public interface EmgVehicleRepository extends CrudRepository<EmgVehicle, Long> {
     List<EmgVehicle> findByTypeContainingIgnoreCase(String type);
     List<EmgVehicle> findByModelContainingIgnoreCase(String model);
 
+    List<EmgVehicle> findByEmgServiceVehicle(EmgService emgService);
 }
