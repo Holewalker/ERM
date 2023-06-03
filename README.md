@@ -17,7 +17,7 @@ operación (tanto de OK como para KO).
 probar todos los Casos de Uso de la API virtual
 
 :heavy_check_mark: Diseña, al menos, 3 operaciones para que funcionen de forma reactiva con
-WebFlux.
+WebFlux. https://github.com/Holewalker/ERMReactive
 
 :heavy_check_mark: Ajusta el desarrollo de tu proyecto para que cumpla todas las decisiones de diseño
 adoptadas en los puntos anteriores
