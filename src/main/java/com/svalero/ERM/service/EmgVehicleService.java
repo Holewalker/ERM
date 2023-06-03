@@ -4,7 +4,10 @@ import com.svalero.ERM.domain.EmgVehicle;
 import com.svalero.ERM.domain.dto.EmgVehicleDTO;
 import com.svalero.ERM.exception.EmgServiceNotFoundException;
 import com.svalero.ERM.exception.EmgVehicleNotFoundException;
+import com.svalero.ERM.exception.FileNotImageException;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface EmgVehicleService {
@@ -25,5 +28,8 @@ public interface EmgVehicleService {
     EmgVehicle modifyEmgVehicle(long id, EmgVehicleDTO emgVehicleDTO) throws EmgVehicleNotFoundException, EmgServiceNotFoundException;
 
     List<EmgVehicle> findByEmgService(Long emgService) throws EmgServiceNotFoundException;
+
+    EmgVehicle saveImage(long id, MultipartFile multipartFile) throws EmgVehicleNotFoundException, IOException, FileNotImageException;
+
 
 }

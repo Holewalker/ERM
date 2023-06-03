@@ -58,7 +58,8 @@ public class EmgVehicle {
    @NotBlank(message = "Location must be specified")
     private String location;
 
-
+    @Column
+    private String imageURL;
     @Column
     @NotNull(message = "Coordinates must be specified")
     private double lat;

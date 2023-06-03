@@ -4,6 +4,7 @@ import com.svalero.ERM.domain.EmgVehicle;
 import com.svalero.ERM.domain.dto.EmgVehicleDTO;
 import com.svalero.ERM.exception.EmgServiceNotFoundException;
 import com.svalero.ERM.exception.EmgVehicleNotFoundException;
+import com.svalero.ERM.exception.FileNotImageException;
 import com.svalero.ERM.service.EmgServiceService;
 import com.svalero.ERM.util.ErrorUtil;
 import com.svalero.ERM.service.EmgVehicleService;
@@ -14,8 +15,10 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -72,6 +75,14 @@ public class EmgVehicleController {
         EmgVehicle emgVehicle = emgVehicleService.addEmgVehicle(emgVehicleDTO);
         logger.info("POST EmgVehicle END");
         return ResponseEntity.status(HttpStatus.OK).body(emgVehicle);
+    }
+
+    @PostMapping("/products/{id}/image")
+    public ResponseEntity<EmgVehicle> addImageToEmgVehicle(@PathVariable long id, @RequestParam("file") MultipartFile file) throws EmgVehicleNotFoundException, IOException, FileNotImageException {
+        logger.info("POST Image");
+        EmgVehicle emgVehicle = emgVehicleService.saveImage(id, file);
+        logger.info("END POST Image");
+        return ResponseEntity.ok(emgVehicle);
     }
 
     @PutMapping("/EmergencyVehicles/{id}")
