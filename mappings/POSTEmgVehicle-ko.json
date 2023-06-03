@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/EmergencyVehicle",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\n    \"emgServiceId\": 0,\n    \"model\": \"\",\n    \"vin\": \"\",\n    \"type\": \"\",\n    \"operStatus\": 0,\n    \"onRoute\": false,\n    \"available\": false,\n    \"location\": \"\",\n    \"lat\": 0.0,\n    \"lon\": 0.0,\n    \"lastMaintenance\": \"\"\n}"
+      }
+    ]
+  },
+  "response": {
+    "status": 500,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "error500.json"
+  }
+}

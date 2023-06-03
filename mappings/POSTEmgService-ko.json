@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "POST",
+    "url": "/EmergencyService",
+    "bodyPatterns": [
+      {
+        "equalToJson": "{\n    \"location\": \"Zaragoza\",\n    \"type\": \"Police\"\n}"
+      }
+    ]
+  },
+  "response": {
+    "status": 500,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyFileName": "error500.json"
+  }
+}
