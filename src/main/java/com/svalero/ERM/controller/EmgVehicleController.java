@@ -77,7 +77,7 @@ public class EmgVehicleController {
         return ResponseEntity.status(HttpStatus.OK).body(emgVehicle);
     }
 
-    @PostMapping("/products/{id}/image")
+    @PostMapping("/EmergencyVehicles/{id}/image")
     public ResponseEntity<EmgVehicle> addImageToEmgVehicle(@PathVariable long id, @RequestParam("file") MultipartFile file) throws EmgVehicleNotFoundException, IOException, FileNotImageException {
         logger.info("POST Image");
         EmgVehicle emgVehicle = emgVehicleService.saveImage(id, file);
